@@ -1,2 +1,10 @@
-src/data/__pycache__/*
+// ignoring files from __pycache__ directories, as they are locally created on each machine running the code
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+// ignoring ALL .csv 
+*.csv
+
 .venv/
