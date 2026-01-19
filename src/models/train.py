@@ -43,3 +43,65 @@ print("ROC AUC:", roc_auc_score(y_test, y_proba_lr))
 print("\nConfusion Matrix")
 print(confusion_matrix(y_test, y_pred_rf))
 print("ROC AUC:", roc_auc_score(y_test, y_proba_rf))
+
+'''Advanced modeling: XGBOOST'''
+import xgboost as xgb
+from sklearn.model_selection import RandomizedSearchCV
+'''ratio to help XGBOOST focus on rare failure cases'''
+ratio = (y_train == 0).sum() / (y_train == 1).sum()
+
+'''XGBoost with Hyperparameter Tuning'''
+xgb_base = xgb.XGBClassifier(
+    objective='binary:logistic',
+    scale_pos_weight=ratio,
+    eval_metric='aucpr',
+    random_state=42
+)
+
+param_grid = {
+    'n_estimators': [100, 200, 300],
+    'max_depth': [3, 5, 7],
+    'learning_rate': [0.01, 0.1, 0.2],
+    'subsample': [0.7, 0.8, 0.9]
+}
+
+random_search = RandomizedSearchCV(
+    xgb_base,
+    param_distributions=param_grid,
+    n_iter=10, # Number of combinations to try
+    cv=3,
+    scoring='roc_auc',
+    n_jobs=-1
+)
+
+random_search.fit(X_train, y_train)
+best_xgb = random_search.best_estimator_
+
+dump(best_xgb, "xgb_aps_tuned_model.joblib")
+
+y_pred_xgb = best_xgb.predict(X_test)
+y_proba_xgb = best_xgb.predict_proba(X_test)[:, 1]
+
+'''Comparison table'''
+def calculate_scania_cost(y_true, y_pred):
+    """Specific cost metric for Scania: FP=10, FN=500"""
+    tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
+    return (fp * 10) + (fn * 500)
+
+comparison_data = {
+    "Model": ["Logistic Regression", "Random Forest", "XGBoost (Tuned)"],
+    "ROC AUC": [
+        roc_auc_score(y_test, y_proba_lr),
+        roc_auc_score(y_test, y_proba_rf),
+        roc_auc_score(y_test, y_proba_xgb)
+    ],
+    "Total Cost ($)": [
+        calculate_scania_cost(y_test, y_pred_lr),
+        calculate_scania_cost(y_test, y_pred_rf),
+        calculate_scania_cost(y_test, y_pred_xgb)
+    ]
+}
+
+df_comparison = pd.DataFrame(comparison_data)
+print("\n--- Final Model Comparison ---")
+print(df_comparison.sort_values(by="Total Cost ($)"))
