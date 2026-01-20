@@ -1,0 +1,26 @@
+===== Random Forest =====
+Accuracy : 0.987375
+Precision: 0.7035294117647058
+Recall   : 0.7973333333333333
+F1-score : 0.7475
+ROC-AUC  : 0.9927975253333333
+Optimal threshold: 0.089
+Minimal cost: 10,800.0
+
+===== Logistic Regression =====
+Accuracy : 0.972375
+Precision: 0.4564369310793238
+Recall   : 0.936
+F1-score : 0.6136363636363636
+ROC-AUC  : 0.98867328
+Optimal threshold: 0.376
+Minimal cost: 13,190.0
+
+===== Xgboost =====
+Accuracy : 0.991625
+Precision: 0.8230563002680965
+Recall   : 0.8186666666666667
+F1-score : 0.820855614973262
+ROC-AUC  : 0.9943885653333333
+Optimal threshold: 0.010
+Minimal cost: 14,010.0
