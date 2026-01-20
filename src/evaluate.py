@@ -45,7 +45,7 @@ def plot_confusion_matrix(y_true, y_pred, model_name, normalize=False):
     plt.xlabel("Predicted Label")
     plt.ylabel("True Label")
     plt.title(title)
-    plt.savefig(f"src/plots/{filename}", bbox_inches='tight')
+    plt.savefig(f"evaluation_plots/{filename}", bbox_inches='tight')
     plt.close()
 
     return cm
@@ -72,7 +72,7 @@ def plot_cost_matrix(cm, model_name, cost_fp=10, cost_fn=500):
     plt.title("Cost-Weighted Confusion Matrix")
 
     filename = f"{model_name}_cost_matrix.png"
-    plt.savefig(f"src/plots/{filename}", bbox_inches='tight')
+    plt.savefig(f"evaluation_plots/{filename}", bbox_inches='tight')
     plt.close()
 
 
@@ -90,7 +90,7 @@ def plot_roc_curve(y_true, y_proba, model_name):
     plt.grid(True)
 
     filename = f"{model_name}_roc_curve.png"
-    plt.savefig(f"src/plots/{filename}", bbox_inches='tight')
+    plt.savefig(f"evaluation_plots/{filename}", bbox_inches='tight')
     plt.close()
 
 
@@ -135,7 +135,7 @@ def plot_cost_vs_threshold(df, best_threshold, model_name):
     plt.grid(True)
 
     filename = f"{model_name}_cost_vs_threshold.png"
-    plt.savefig(f"src/plots/{filename}", bbox_inches='tight')
+    plt.savefig(f"evaluation_plots/{filename}", bbox_inches='tight')
     plt.close()
 
 
