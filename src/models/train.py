@@ -16,7 +16,7 @@ handled class imbalance with class weigths
 saved model with joblib'''
 lr_model = LogisticRegression(class_weight="balanced", max_iter=1000)
 lr_model.fit(X_train, y_train)
-dump(lr_model,"lr_aps_model.joblib")
+dump(lr_model,"src/models/lr_aps_model.joblib")
 
 y_pred_lr = lr_model.predict(X_test)
 y_proba_lr = lr_model.predict_proba(X_test)[:, 1]
@@ -29,7 +29,7 @@ rf_model = RandomForestClassifier(
     max_depth=12,
     class_weight="balanced")
 rf_model.fit(X_train, y_train)
-dump((rf_model),"rf_aps_model.joblib")
+dump((rf_model),"src/models/rf_aps_model.joblib")
 
 y_pred_rf = rf_model.predict(X_test)
 y_proba_rf = rf_model.predict_proba(X_test)[:, 1]
@@ -77,7 +77,7 @@ random_search = RandomizedSearchCV(
 random_search.fit(X_train, y_train)
 best_xgb = random_search.best_estimator_
 
-dump(best_xgb, "xgb_aps_tuned_model.joblib")
+dump(best_xgb, "src/models/xgb_aps_tuned_model.joblib")
 
 y_pred_xgb = best_xgb.predict(X_test)
 y_proba_xgb = best_xgb.predict_proba(X_test)[:, 1]
@@ -105,3 +105,6 @@ comparison_data = {
 df_comparison = pd.DataFrame(comparison_data)
 print("\n--- Final Model Comparison ---")
 print(df_comparison.sort_values(by="Total Cost ($)"))
+
+# zapis do pliku
+df_comparison.to_csv("reports/model_comparison.csv", index=False)
