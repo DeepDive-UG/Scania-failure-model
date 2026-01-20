@@ -9,8 +9,5 @@ __pycache__/
 
 .venv/
 
-// ignoring evaluation_plots
-*.png
-
 //ignoring .joblib files
 *.joblib
