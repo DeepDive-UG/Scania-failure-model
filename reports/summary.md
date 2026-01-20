@@ -30,7 +30,7 @@ Data is not missing completely at random (MCAR).
 
 Most features are highly skewed and dominated by extreme outliers, as seen in the log-scale distributions of top features.
 
-- **High Skewness:** Top features like `by_000` (6.38) and `cq_000` (6.22) show massive variance.
+- **High Skewness:** Top features like `bu_000` (6.38) and `cq_000` (6.22) show massive variance.
 - **Outlier Dominance:** The presence of extreme values necessitates **Robust Scaling** or standardization to prevent outliers from distorting the model's learning process.
 
 <h3 align="center">Feature Distributions (Log-Scale)</h3>
