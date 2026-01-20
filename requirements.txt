@@ -1,1 +1,15 @@
-#add required packages
+# Core Data Science libraries
+numpy==2.4.1
+pandas==2.3.3
+scikit-learn==1.8.0
+scipy==1.17.0
+
+# Visualization
+matplotlib==3.10.8
+seaborn==0.13.2
+
+# Notebook support (optional but helpful)
+ipykernel==7.1.0
+
+missingno
+xgboost

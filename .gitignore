@@ -8,3 +8,9 @@ __pycache__/
 *.csv
 
 .venv/
+
+// ignoring evaluation_plots
+*.png
+
+//ignoring .joblib files
+*.joblib

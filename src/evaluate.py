@@ -15,10 +15,26 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def print_metrics(y_true, y_pred, y_proba):
+    """
+    Print a comprehensive set of classification performance metrics.
+
+    Args:
+        y_true (array-like): Ground truth (correct) target values.
+        y_pred (array-like): Estimated targets as returned by a classifier.
+        y_proba (array-like): Predicted probabilities for the positive class (needed for ROC-AUC calculation).
+
+    Returns:
+        None: The function prints the metrics directly to the console.
+    """
+    # Percentage of correct predictions (caution: misleading for imbalanced data)
     print("Accuracy :", accuracy_score(y_true, y_pred))
+    # How many of predicted failures were actual failures
     print("Precision:", precision_score(y_true, y_pred))
+    # How many of actual failures were correctly caught
     print("Recall   :", recall_score(y_true, y_pred))
+    # Harmonic mean of Precision and Recall
     print("F1-score :", f1_score(y_true, y_pred))
+    # Model's ability to distinguish between classes regardless of threshold
     print("ROC-AUC  :", roc_auc_score(y_true, y_proba))
 
 def plot_confusion_matrix(y_true, y_pred, model_name, normalize=False):
@@ -166,11 +182,11 @@ def evaluate_model(model, X_test, y_test, model_name):
 X_test = pd.read_csv("data/processed/X_test.csv")
 y_test = pd.read_csv("data/processed/y_test.csv")
 
-rf = joblib.load("rf_aps_model.joblib")
+rf = joblib.load("src/models/rf_aps_model.joblib")
 evaluate_model(rf, X_test, y_test, model_name="Random Forest")
 
-lr = joblib.load("lr_aps_model.joblib")
+lr = joblib.load("src/models/lr_aps_model.joblib")
 evaluate_model(lr, X_test, y_test, model_name="Logistic Regression")
 
-xg = joblib.load("xgb_aps_tuned_model.joblib")
+xg = joblib.load("src/models/xgb_aps_tuned_model.joblib")
 evaluate_model(xg, X_test, y_test, model_name="Xgboost")
